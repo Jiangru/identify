@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用方法</title>
+</head>
+<body>
+  <code>
+    <template>
+      <identify :identifyCode="identifyCode"></identify>
+    </template>
+    <script>
+      import Identify from './identify'
+      export default {
+        name: 'login',
+        components: {
+          Identify
+        },
+        data () {
+          return {
+            username: '',
+            password: '',
+            verificationCode: '',
+            identifyCodes: '1234567890',
+            identifyCode: '',
+            rememberCode: false
+          }
+        },
+        methods: {
+          refresh () {
+            this.identifyCode = ''
+            this.makeCode(this.identifyCodes, 4)
+          },
+          randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+          },
+          refreshCode() {
+            this.identifyCode = ''
+            this.makeCode(this.identifyCodes, 4)
+          },
+          makeCode(o, l) {
+            for (let i = 0; i < l; i++) {
+              this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
+            }
+            console.log(this.identifyCode)
+          }
+        },
+        mounted() {
+          this.identifyCode = ''
+          this.makeCode(this.identifyCodes, 4)
+        }
+      }
+    </script>
+  </code>
+</body>
+</html>
